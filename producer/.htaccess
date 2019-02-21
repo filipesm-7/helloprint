@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /helloprint/producer/
+	
+RewriteRule ^user/(\w+)/logon/?$ index.php?action=logon&username=$1 [QSA,L]
