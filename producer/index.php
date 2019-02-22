@@ -8,7 +8,7 @@ if ( $_SERVER["REQUEST_METHOD"] != "POST" ) {
 require_once 'class/ApiResponse.php';
 
 if( empty( $_REQUEST["username"] ) ) {
-	header( "HTTP/1.0 401" );
+	header( "HTTP/1.0 401; Content-Type: application/json" );
 	die( json_encode( array ( "status" => "401", "message" => "username required" ) ) );
 }
 
@@ -28,4 +28,5 @@ $result = array(
 	"data"		=> $response->get_data()
 );
 
+header( "Content-Type: application/json" );
 echo json_encode( $result );
