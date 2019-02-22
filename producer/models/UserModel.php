@@ -14,13 +14,25 @@ class UserModel {
 		return $this->dbh;
 	}
 	
-	public function get_user( $username ){
+	public function get_user( $username, $filters=array() ){
 		$pdo = $this->dbh->init_connection();
 		
 		$sql = "SELECT * FROM users WHERE username = :username";
-		$sth = $pdo->prepare( $sql );
-		$sth->execute( array( ":username" => $username ) );
 		
-		return $sth->fetch();
+		if ( !empty( $filters ) ) {
+			foreach( $filters as $key => $value ) {
+				$sql .= " AND " . $key . " = " . $key;
+			}
+		}
+		$filters[":username"] = $username;
+		
+		$sth = $pdo->prepare( $sql );
+		$sth->execute( $filters );
+		$result = $sth->fetch();
+		
+		//close connection
+		$pdo = null;
+		
+		return $result;
 	}
 }
