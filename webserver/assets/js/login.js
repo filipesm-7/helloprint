@@ -34,7 +34,6 @@ function validate_login() {
     var fusername = document.getElementById( "username" ).value;
     var fpassword = document.getElementById( "password" ).value;
     var invalid_fields = [];
-    var message = "";
 
     if ( fusername == "" ) {
         invalid_fields.push( {"field": "username", "message": "username is required"} );
