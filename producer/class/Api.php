@@ -34,7 +34,23 @@ class Api {
 				$successful = !empty( $result );
 				$this->response->set_status( $successful ? "200" : "401" );
 				$this->response->set_message( $successful ? "login successful" : "user does not exist"  );
+                
+                break;
 			}
+            case "request_password": {
+                $dbh = DBHandler::get_instance();
+				$user = new UserController (
+					new UserModel( $dbh )
+				);
+                
+                $result = $user->request_password( $params["username"] );
+                
+                $successful = !empty( $result );
+				$this->response->set_status( $successful ? "200" : "401" );
+				$this->response->set_message( $successful ? "password request made - you will receive an email shortly" : "unable to request password, please try again"  );
+                
+                break;
+            }
 		}
 	}
 }
