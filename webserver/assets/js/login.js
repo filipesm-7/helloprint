@@ -13,7 +13,7 @@ function login( user, pass ) {
                 var response = JSON.parse( xhr.response );
                 
                 message = response.message;
-                opts.classname = "text-info";
+                opts.classname = ( response.status == "200" ) ? "text-success" : "text-danger";
             }
             else {
                 message = "problem communicating with server"
