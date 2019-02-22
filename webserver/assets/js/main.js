@@ -1,11 +1,11 @@
 (function(){
-	//webserver js configuration
+	//webserver js configuration and utilities
 	if (!window.helloprint) {
 		window.helloprint = {};
 
 		helloprint.PRODUCER_SERVER = 'http://localhost/';
 		helloprint.PRODUCER_LOGIN_ENDPOINT = 'helloprint/producer/user/{username}/logon';
-		helloprint.PRODUCER_REQUESTPASSWORD_ENDPOINT = 'user/{username}/request-password';
+		helloprint.PRODUCER_REQUESTPASSWORD_ENDPOINT = 'helloprint/producer/user/{username}/request-password';
         
         helloprint.utils = {
             show_form_errors: function( fields ) {
