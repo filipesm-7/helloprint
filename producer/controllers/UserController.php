@@ -10,7 +10,11 @@ class UserController {
 		$this->model = $model;
 	}
 	
-	public function login( $username ){
-		return $this->model->get_user( $username );
+	public function login( $username, $password ){
+		$filters = array( 
+			":password" => $password,
+			":status" 	=> 1
+		);
+		return $this->model->get_user( $username, $filters );
 	}
 }

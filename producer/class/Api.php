@@ -29,7 +29,7 @@ class Api {
 					new UserModel( $dbh )
 				);
 				
-				$result = $user->login( $params["username"] );
+				$result = $user->login( $params["username"], $params["password"] );
 
 				$successful = !empty( $result );
 				$this->response->set_status( $successful ? "200" : "401" );
