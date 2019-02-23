@@ -2,10 +2,12 @@
 
 namespace Helloprint\Controllers;
 
+use Helloprint\ApiException;
+use Helloprint\AMQPWrapper;
 use HelloPrint\Configuration;
 use HelloPrint\Models\UserModel;
 
-use PhpAmqpLib\Message\AMQPMessage;
+use \PhpAmqpLib\Message\AMQPMessage;
 
 class UserController {
 	
@@ -27,11 +29,11 @@ class UserController {
         $user = $this->model->get_user( $username, array ( "status" => 1 ) );
         
         if ( empty( $user ) ) {
-            return false;
+            throw new ApiException( "user does not exist" );
         }
         
         try {
-            $queue = new \Helloprint\AMQPWrapper();
+            $queue = new AMQPWrapper();
             
             $msg = new AMQPMessage( $user["username"] );
             $queue->channel->basic_publish( 
@@ -39,6 +41,8 @@ class UserController {
                 "",
                 Configuration::REQUEST_REQUESTPASSWORD
             );
+            
+            $queue->close();
         } catch( \Exception $e ) {
             return false;
         }
