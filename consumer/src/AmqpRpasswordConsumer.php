@@ -21,7 +21,7 @@ class AmqpRpasswordConsumer extends AmqpConsumer {
     }
     
     public function process( $message ) {
-        echo " [x] received " . $message->body . " message. processing ...\n";
+        echo "  \n[x] received " . $message->body . " message. processing ...\n";
         
         try {
             $user = json_decode( $message->body, true );
@@ -37,7 +37,9 @@ class AmqpRpasswordConsumer extends AmqpConsumer {
             echo " [x] updated password for " . $user["username"] . " . new password is " . $new_password . "\n";
             
             //add user password request email to queue
-            $this->queue_user_password_email( array( "username" => $user["username"], "email" => $user["email"] ) );
+            $this->queue_user_password_email( 
+                array( "username" => $user["username"], "email" => $user["email"], "password" => $new_password ) 
+            );
             
         } catch( \Exception $e ) {
             echo " [ERROR] problem processing message: " . $e->getMessage() . "\n";
