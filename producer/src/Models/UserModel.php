@@ -1,6 +1,8 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/../class/DBHandler.php';
+namespace Helloprint\Models;
+
+use HelloPrint\Db\DBHandler;
 
 class UserModel {
 	

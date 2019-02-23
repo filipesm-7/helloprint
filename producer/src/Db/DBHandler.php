@@ -1,5 +1,9 @@
 <?php
 
+namespace Helloprint\Db;
+
+use Helloprint\Configuration;
+
 class DBHandler {
 	
 	public static function get_instance()
@@ -12,20 +16,19 @@ class DBHandler {
     }
 	
 	public function init_connection() {
-		require_once dirname( __FILE__ ) . '/../config.php';
-		
 		$dbh = null;
+        
 		try {
-			$dbh = new PDO(
-				$helloprint_config["DNS"], 
-				$helloprint_config["DBUSER"], 
-				$helloprint_config["DBPASSWORD"]
+			$dbh = new \PDO(
+				Configuration::$DB["DNS"],
+				Configuration::$DB["USER"], 
+				Configuration::$DB["PASSWORD"]
 			);
 			
 			if ( $dbh == null ) {
-				throw new Exception( "could not connect to database" );
+				throw new \Exception( "could not connect to database" );
 			}
-		} catch ( PDOException $e ) { }
+		} catch ( \PDOException $e ) { }
 		
 		return $dbh;
 	}

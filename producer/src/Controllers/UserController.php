@@ -1,6 +1,11 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/../models/UserModel.php';
+namespace Helloprint\Controllers;
+
+use HelloPrint\Models\UserModel;
+
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 class UserController {
 	
@@ -17,4 +22,7 @@ class UserController {
 		);
 		return $this->model->get_user( $username, $filters );
 	}
+    
+    public function request_password( $username ) {
+    }
 }
