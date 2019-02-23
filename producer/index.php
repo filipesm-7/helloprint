@@ -5,20 +5,18 @@ if ( $_SERVER["REQUEST_METHOD"] != "POST" ) {
 	die();
 }
 
-require_once 'class/ApiResponse.php';
+//load autoload and configuration
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 if( empty( $_REQUEST["username"] ) ) {
 	header( "HTTP/1.0 401; Content-Type: application/json" );
 	die( json_encode( array ( "status" => "401", "message" => "username required" ) ) );
 }
 
-require_once 'class/Api.php';
-
 try {
-	$api = new Api();
+	$api = new Helloprint\Api();
 	$api->execute( $_REQUEST["action"], $_REQUEST );
 } catch ( Exception $e ) {
-	echo print_r( $e, 1 );
 }
 
 $response = $api->get_response();
