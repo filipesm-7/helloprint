@@ -33,13 +33,25 @@ class UserController {
         }
         
         try {
+            //open queue connection
             $queue = new AMQPWrapper();
             
-            $msg = new AMQPMessage( $user["username"] );
+            //create queue message instance
+            $msg = new AMQPMessage( 
+                json_encode(
+                    array(
+                        "id"        => $user["Id"],
+                        "username"  => $user["username"],
+                        "email"     => $user["email"]
+                    )
+                ) 
+            );
+            
+            //publish message to rpassword queue
             $queue->channel->basic_publish( 
                 $msg, 
                 "",
-                Configuration::REQUEST_REQUESTPASSWORD
+                Configuration::QUEUE_RPASSWORD
             );
             
             $queue->close();
