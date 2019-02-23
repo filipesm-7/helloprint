@@ -4,8 +4,9 @@
 		window.helloprint = {};
 
 		helloprint.PRODUCER_SERVER = 'http://localhost/';
-		helloprint.PRODUCER_LOGIN_ENDPOINT = 'helloprint/producer/user/{username}/logon';
-		helloprint.PRODUCER_REQUESTPASSWORD_ENDPOINT = 'helloprint/producer/user/{username}/request-password';
+        helloprint.PRODUCER_ROOT_PATH = 'helloprint/producer/';
+		helloprint.PRODUCER_LOGIN_ENDPOINT = 'user/{username}/logon';
+		helloprint.PRODUCER_REQUESTPASSWORD_ENDPOINT = 'user/{username}/request-password';
         
         helloprint.utils = {
             xhttp_request: function( endpoint, method, qstring ) {
@@ -35,6 +36,18 @@
                 xhr.open( method, endpoint, true );
                 xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
                 xhr.send( qstring );
+            },
+            validate: function( fields ) {
+                var invalid_fields = [];
+                
+                fields.forEach( function(id){
+                    var field = document.getElementById( id );
+                
+                    if( field.value == "" ) {
+                        invalid_fields.push( { "field": id, "message": id + " is required" } );
+                    }
+                });
+                return invalid_fields;
             },
             show_form_errors: function( fields ) {
                 var error_class = "border border-danger";
