@@ -33,7 +33,17 @@ Open *main.js* located at /webserver/assets/js/ . Notice the following propertie
 
 ## Usage
 
-Simply access login.html on your webserver to test it out. Don't forget to have your RabbitMQ service running.
+### Login and requesting password
+Simply access login.html on your webserver root.
+
+### Launching consumer script
+To launch the consumer execute the following command on the consumer server root:
+
+```php consumer.php <queue_name> <num_workers>```
+
+where *<queue_name>* is the queue you will be consuming from and *num_workers* is the number of workers you want to launch. The arguments are optional. If no arguments are presented, the script will run the default queue with one worker.
+
+__Attention: Your RabbitMQ service needs to be running on your consumer server.__
 
 ## Authors
 
