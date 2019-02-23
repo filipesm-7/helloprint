@@ -26,11 +26,11 @@ class UserModel {
 				$sql .= " AND " . $key . " = :" . $key;
 			}
 		}
-		$filters[":username"] = $username;
+		$filters["username"] = $username;
         
 		$sth = $pdo->prepare( $sql );
 		$sth->execute( $filters );
-		$result = $sth->fetch();
+		$result = $sth->fetch( \PDO::FETCH_ASSOC );
 		
 		//close connection
 		$pdo = null;
