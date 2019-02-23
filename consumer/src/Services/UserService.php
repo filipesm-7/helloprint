@@ -1,6 +1,6 @@
 <?php
 
-namespace Helloprint\Service;
+namespace Helloprint\Services;
 
 use HelloPrint\Db\DBHandler;
 
@@ -41,9 +41,9 @@ class UserService {
     public function update_password( $userid, $password ) {
         $pdo = $this->dbh->init_connection();
 		
-		$sql = "UPDATE users SET password = :password WHERE userid = :userid";
+		$sql = "UPDATE users SET password = :password WHERE Id = :userid";
         
         $sth = $pdo->prepare( $sql );
-		return $sth->execute( array ( "Id" => $userid, "password" => $password ) );	
+		return $sth->execute( array ( "userid" => $userid, "password" => $password ) );	
     }
 }
