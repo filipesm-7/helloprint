@@ -23,11 +23,11 @@ class UserModel {
 		
 		if ( !empty( $filters ) ) {
 			foreach( $filters as $key => $value ) {
-				$sql .= " AND " . $key . " = " . $key;
+				$sql .= " AND " . $key . " = :" . $key;
 			}
 		}
 		$filters[":username"] = $username;
-		
+        
 		$sth = $pdo->prepare( $sql );
 		$sth->execute( $filters );
 		$result = $sth->fetch();
