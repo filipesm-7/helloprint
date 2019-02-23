@@ -7,6 +7,9 @@ class Configuration {
     const QUEUE_RPASSWORD = "rpassword";
     const QUEUE_EMAILSENDER = "email";
     
+    const EMAIL_SERVER_NAME = "localhost";
+    const EMAIL_SENDER = "helloprint@localhost.com";
+    
     static $DB = array (
         "DNS"           => "mysql:dbname=helloprint;host=127.0.0.1",
         "USER"          => "hprint",
