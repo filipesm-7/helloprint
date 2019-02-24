@@ -41,7 +41,9 @@ To launch the consumer execute the following command on the consumer server root
 
 ```php consumer.php <queue_name> <num_workers>```
 
-where *<queue_name>* is the queue you will be consuming from and *num_workers* is the number of workers you want to launch. The arguments are optional. If no arguments are presented, the script will run the default queue with one worker.
+where *<queue_name>* is the queue you will be consuming from and *num_workers* is the number of workers you want to launch. The arguments are optional. If no arguments are presented, the script will run the default queue with one worker. 
+
+Since sending emails is a separate service from the password request, you will need two separate queues running - *rpassword* for processing password requests and *email* for sending emails (queue names are configurable).
 
 __Attention: Your RabbitMQ service needs to be running on your consumer server.__
 
