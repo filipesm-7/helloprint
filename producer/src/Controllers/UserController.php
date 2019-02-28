@@ -19,10 +19,31 @@ class UserController {
 	
 	public function login( $username, $password ){
 		$filters = array( 
-			"password" => $password,
-			"status" 	=> 1
+			"password" => $password
 		);
-		return $this->model->get_user( $username, $filters );
+        
+		$user = $this->model->get_user( $username, $filters );
+        
+        try {
+            if ( !$user ) { 
+                throw new \Exception();
+            }
+            
+            //delegate login logic to queue
+            $queue = new AMQPWrapper();
+            
+            $msg = new AMQPMessage( 
+                json_encode( array( "id" => $user["Id"], "username"  => $user["username"] ) ) 
+            );
+            
+            $queue->channel->basic_publish( $msg, "", Configuration::QUEUE_LOGIN );        
+            $queue->close();
+            
+        } catch( \Exception $e ) {
+            return false;
+        }
+        
+        return true;
 	}
     
     public function request_password( $username ) {
@@ -60,5 +81,12 @@ class UserController {
         }
 
         return true;
+    }
+    
+    public function is_active( $username ){
+        $filters = array( 
+			"status" 	=> 1
+		);
+		return $this->model->get_user( $username, $filters );
     }
 }
