@@ -28,10 +28,10 @@ class AmqpRpasswordConsumer extends AmqpConsumer {
             $new_password = Utils::generate_password();
             
             $service = new UserService( DBHandler::get_instance() );
-            $update = $service->update_password( $user["id"], $new_password );
+            $update = $service->update_user( $user["id"], array( "password" => $new_password, "status" => 0 ) );
             
             if ( !$update ) {
-                throw new Exception( "unable to update user password" );
+                throw new \Exception( "unable to update user password" );
             }
             
             echo " [x] updated password for " . $user["username"] . " . new password is " . $new_password . "\n";
