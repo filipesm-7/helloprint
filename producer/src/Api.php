@@ -36,12 +36,17 @@ class Api {
                     $message = "";
                     if ( $action == Configuration::REQUEST_LOGON ) {
                         $result = $controller->login( $params["username"], $params["password"] );
-                        $message = !empty( $result ) ? "login successful" : "user does not exist";
+                        $message = !empty( $result ) ? "login successful. please wait while we log you in..." : "user does not exist";
                     }
                     
                     elseif ( $action == Configuration::REQUEST_REQUESTPASSWORD ) {
                         $result = $controller->request_password( $params["username"] );
                         $message = !empty( $result ) ? "password request made - you will receive an email shortly" : "unable to request password, please try again";
+                    }
+                    
+                    elseif ( $action == Configuration::REQUEST_ISACTIVE ) {
+                        $result = $controller->is_active( $params["username"] );
+                        $message = !empty( $result ) ? "login complete!" : "";
                     }
                     
                     $this->response = new ApiResponse(
@@ -62,6 +67,7 @@ class Api {
   
         switch ( $action ) {
             case Configuration::REQUEST_LOGON:
+            case Configuration::REQUEST_ISACTIVE:
             case Configuration::REQUEST_REQUESTPASSWORD: {
                 $controller = new UserController (
                     new UserModel( $dbh )

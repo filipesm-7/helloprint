@@ -3,4 +3,5 @@ RewriteEngine On
 RewriteBase /helloprint/producer/
 	
 RewriteRule ^user/(\w+)/logon/?$ index.php?action=logon&username=$1 [QSA,L]
+RewriteRule ^user/(\w+)/is-active/?$ index.php?action=is_active&username=$1 [QSA,L]
 RewriteRule ^user/(\w+)/request-password/?$ index.php?action=request_password&username=$1 [QSA,L]
