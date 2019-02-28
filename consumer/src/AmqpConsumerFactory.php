@@ -5,6 +5,7 @@ namespace Helloprint;
 use Helloprint\Configuration;
 use Helloprint\AmqpConnector;
 use Helloprint\AmqpRpasswordConsumer;
+use Helloprint\AmqpLoginConsumer;
 use Helloprint\AmqpEmailSenderConsumer;
 
 class AmqpConsumerFactory {
@@ -18,10 +19,16 @@ class AmqpConsumerFactory {
                 $consumer = new AmqpRpasswordConsumer( $connector, $queue_name );
                 break;
             }
+            case Configuration::QUEUE_LOGIN: {
+                $consumer = new AmqpLoginConsumer( $connector, $queue_name );
+                break;
+            }
             case Configuration::QUEUE_EMAILSENDER: {
                 $consumer = new AmqpEmailSenderConsumer( $connector, $queue_name );
                 break;
             }
+            
+            
         }
         return $consumer;
     }
