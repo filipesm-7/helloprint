@@ -10,6 +10,7 @@ function login() {
             "POST", 
             "password="+pass 
         );
+        last_requested_api_call = helloprint.PRODUCER_LOGIN_ENDPOINT;
     } else {
         //add error classes to fields and update user message
         helloprint.utils.show_form_errors( errors );
@@ -41,6 +42,7 @@ var get_user_status = function( user ){
     );
 }
 var query_user_status = undefined;
+var last_requested_api_call = "";
 
 // set observer on form-message
 var target = document.getElementById( "form-message" );
@@ -49,7 +51,7 @@ var target = document.getElementById( "form-message" );
 var observer = new MutationObserver( function( mutations ) {
     
     //login successful, query API
-    if( target.className == "text-success" ) {
+    if( target.className == "text-success" && last_requested_api_call == helloprint.PRODUCER_LOGIN_ENDPOINT ) {
         var user = document.getElementById( "username" ).value;
         
         if ( undefined == query_user_status ) {
