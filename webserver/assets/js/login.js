@@ -33,3 +33,35 @@ function request_password() {
     }
     return false;
 }
+
+//set callback function to request user status to api
+var get_user_status = function( user ){
+    helloprint.utils.xhttp_request(
+        helloprint.PRODUCER_SERVER + helloprint.PRODUCER_ROOT_PATH + helloprint.PRODUCER_ISACTIVE_ENDPOINT.replace( "{username}", user )
+    );
+}
+var query_user_status = undefined;
+
+// set observer on form-message
+var target = document.getElementById( "form-message" );
+
+// create an observer instance
+var observer = new MutationObserver( function( mutations ) {
+    
+    //login successful, query API
+    if( target.className == "text-success" ) {
+        var user = document.getElementById( "username" ).value;
+        
+        if ( undefined == query_user_status ) {
+            //first login made, disable submit and set interval function to query user status until its active
+            document.getElementById( "login-btn" ).disabled = true;
+            
+            query_user_status = setInterval( get_user_status( user ), 3000 );
+        } else {
+            clearInterval( query_user_status ); //stop querying API 
+        }  
+    }
+});
+
+// pass in the target node, as well as the observer options
+observer.observe( target, { attributes: true, childList: true, characterData: true } );

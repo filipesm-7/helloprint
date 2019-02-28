@@ -6,6 +6,7 @@
 		helloprint.PRODUCER_SERVER = 'http://localhost/';
         helloprint.PRODUCER_ROOT_PATH = 'helloprint/producer/';
 		helloprint.PRODUCER_LOGIN_ENDPOINT = 'user/{username}/logon';
+        helloprint.PRODUCER_ISACTIVE_ENDPOINT = 'user/{username}/is-active';
 		helloprint.PRODUCER_REQUESTPASSWORD_ENDPOINT = 'user/{username}/request-password';
         
         helloprint.utils = {
@@ -29,7 +30,9 @@
                             message = "problem communicating with server"
                         }
                         
-                        helloprint.utils.show_form_message( "form-message", message, opts );
+                        if( message != "" ){
+                            helloprint.utils.show_form_message( "form-message", message, opts );
+                        }
                     }
                 }
                 
