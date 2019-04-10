@@ -22,13 +22,15 @@ SET time_zone = "+00:00";
 -- Database: `helloprint`
 --
 
+CREATE DATABASE IF NOT EXISTS helloprint;
+
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `Id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -39,9 +41,6 @@ CREATE TABLE `users` (
 --
 -- Extraindo dados da tabela `users`
 --
-
-INSERT INTO `users` (`Id`, `username`, `password`, `email`, `status`) VALUES
-(1, 'helloprint', 'P@ssw0rd!', 'xxxxxx@xxxxxx.xxx\r\n', 1);
 
 --
 -- Indexes for dumped tables
@@ -64,6 +63,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+-- populate db
+REPLACE INTO `users` (`Id`, `username`, `password`, `email`, `status`) VALUES
+(1, 'helloprint', 'P@ssw0rd!', 'xxxxxx@xxxxxx.xxx\r\n', 1);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
