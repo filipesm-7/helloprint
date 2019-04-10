@@ -5,6 +5,14 @@ if ( $_SERVER["REQUEST_METHOD"] != "POST" ) {
 	die();
 }
 
+//set http response headers
+header( "Content-Type: application/json" );
+header( "Access-Control-Allow-Origin: *");
+
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    exit; // OPTIONS request wants only the policy
+}
+
 //load autoload and configuration
 require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
@@ -26,5 +34,4 @@ $result = array(
 	"data"		=> $response->get_data()
 );
 
-header( "Content-Type: application/json" );
 echo json_encode( $result );
