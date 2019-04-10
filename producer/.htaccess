@@ -1,6 +1,6 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase /helloprint/producer/
+RewriteBase /
 	
 RewriteRule ^user/(\w+)/logon/?$ index.php?action=logon&username=$1 [QSA,L]
 RewriteRule ^user/(\w+)/is-active/?$ index.php?action=is_active&username=$1 [QSA,L]

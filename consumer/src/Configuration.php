@@ -12,13 +12,13 @@ class Configuration {
     const EMAIL_SENDER = "helloprint@localhost.com";
     
     static $DB = array (
-        "DNS"           => "mysql:dbname=helloprint;host=127.0.0.1",
-        "USER"          => "hprint",
+        "DNS"           => "mysql:dbname=helloprint;host=mysql-db",
+        "USER"          => "root",
         "PASSWORD"      => "12345"
     );
     
     static $QUEUE = array (
-        "SERVER"        => "localhost",
+        "SERVER"        => "rabbitmq",
         "PORT"          => "5672",
         "USER"          => "guest",
         "PASS"          => "guest"
