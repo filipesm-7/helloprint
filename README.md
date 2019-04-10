@@ -17,7 +17,7 @@ Run ```docker-compose build``` to build the Dockerfile images
 Run ```docker-compose up``` to bring the containers up
 
 
-Visit http:localhost:8080/login to view the appl
+Visit http:localhost:8080/login to view the application.
 
 ### Launching the consumer script
 To launch the consumer script access the consumer-server container and run the following command:
