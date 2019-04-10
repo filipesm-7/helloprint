@@ -11,8 +11,11 @@ Docker - https://www.docker.com/
 ## Setup
 
 Run ```composer install``` inside both producer and consumer to download lib dependencies
+
 Run ```docker-compose build``` to build the Dockerfile images
+
 Run ```docker-compose up``` to bring the containers up
+
 
 Visit http:localhost:8080/login to view the appl
 
